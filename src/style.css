@@ -2,13 +2,6 @@
 *, *::before, *::after {
   box-sizing: border-box;
 }
-* {
-  margin: 0;
-  transition: 0.3s linear;
-}
-html, body {
-  height: 100%;
-}
 body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
@@ -22,4 +15,23 @@ input, button, textarea, select {
 }
 p, h1, h2, h3, h4, h5, h6 {
   overflow-wrap: break-word;
+}
+
+
+
+a {
+}
+.wrap{
+    display: grid;
+    grid-template-columns: 14% auto;
+    align-items: start;
+    gap: 3%;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+}
+#canvas{
+    justify-self: center;
+    border: solid;
 }
