@@ -43,7 +43,8 @@ let imgData, colors, store=[];
 let prevX=0, prevY=0;
 function showImage() {
 	imgData, colors, store=[];
-	prevX=0, prevY=0;
+	//prevX=0, prevY=0;
+	let sumX=0, sumY=0, sumnwp=0;
 
 	s.clear(0,0,canvas.width, canvas.height);
 	ctx.beginPath();
@@ -52,28 +53,32 @@ function showImage() {
 	s.clear(0,0,canvas.width, canvas.height);
 	
 	for(var y = 0; y < img.height; y += radii) {
-  	for(var x = 0; x < img.width; x += radii) {
+		//if(y > prevY) {prevY = y;}
+	  	for(var x = 0; x < img.width; x += radii) {
 
-  		let red = colors[((img.width * y) + x) * 4];
-    	let green = colors[((img.width * y) + x) * 4 + 1];
-    	let blue = colors[((img.width * y) + x) * 4 + 2];
-    	let alpha = colors[((img.width * y) + x) * 4 + 3];
+	  		let red = colors[((img.width * y) + x) * 4];
+	    	let green = colors[((img.width * y) + x) * 4 + 1];
+	    	let blue = colors[((img.width * y) + x) * 4 + 2];
+	    	let alpha = colors[((img.width * y) + x) * 4 + 3];
 
-    	if (red < 255 && green < 255 && blue < 255) {
-    		if(x > prevX) {prevX = x;}
-    		if(y > prevY) {prevY = y;}
+	    	if (red < 255 && green < 255 && blue < 255) {
+	    		//if(x > prevX) {prevX = x;}
+	    		sumX += x;
+	  			sumY += y;
+	  			sumnwp++;
 
-	    	var clr = 'rgba('+ red + ',' + green + ',' + blue + ',' + alpha +')';
-	    	store.push(new Particle(x, y, clr));
-    	}
+		    	var clr = 'rgba('+ red + ',' + green + ',' + blue + ',' + alpha +')';
+		    	store.push(new Particle(x, y, clr));
+	    	}
 	 	}
 	}
-	getDimensions(prevX, prevY);
+	//getDimensions(prevX, prevY);
 	store.forEach(z=> {
 		z.draw();
 	});
 	let tempC = new Vector2D(prevX/2, prevY/2);
-	s.circle(tempC.x, tempC.y);
+
+	s.circle(sumX/sumnwp, sumY/sumnwp);
 	s.fill('red');
 }
 img.onload = () => {
