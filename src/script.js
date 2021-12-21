@@ -24,8 +24,8 @@ reader.onload = (event) => {
 		let temp = calculateAspectRatioFit(img.width, img.height, scaleX, scaleY);
 		img.width = temp.width;
 		img.height = temp.height;
-		getDimensions(img.width, img.height);
-		showImage(img.width, img.height);
+		
+		getDimensions(img.width, img.height, showImage);
 	}
 };
 
@@ -42,7 +42,7 @@ function getDimensions(w, h, callback) {
 	canvas.height = h;
 	center = new Vector2D(canvas.width/2, canvas.height/2);
 
-	if(callback) callback();
+	if(callback) callback(w, h);
 }
 
 function showImage(w, h) {
