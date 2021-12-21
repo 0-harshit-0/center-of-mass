@@ -120,5 +120,7 @@ function showImage(w, h) {
 getDimensions(parseInt(getComputedStyle(wrap).width)*scale, parseInt(getComputedStyle(wrap).height)*scale);
 
 bgColr.onchange = () => {
+	if(!img) return;
+	
 	showImage(img.width, img.height);
 }
