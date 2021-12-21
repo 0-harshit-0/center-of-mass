@@ -1,11 +1,17 @@
 
 let imageFile = document.querySelector('#image');
-let dataUrl, reader = new FileReader();
-
 imageFile.addEventListener('change', (e) => {
 	reader.readAsDataURL(imageFile.files[0]);
 });
-var img;
+
+function calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {
+
+	var ratio = Math.min(maxWidth / srcWidth, maxHeight / srcHeight);
+
+	return { width: srcWidth*ratio, height: srcHeight*ratio };
+}
+
+let dataUrl, reader = new FileReader(), img;
 reader.onload = (event) => {
 	img = new Image();
 	dataUrl = event.target.result;
@@ -14,16 +20,14 @@ reader.onload = (event) => {
 	img.onload = () => {
 		let scaleX = innerWidth*(80/100);
 		let scaleY = innerHeight*(80/100);
-		/*if (img.width > scaleX) {
-			img.width = scaleX
-		}
-		if(img.height > scaleY) {
-			img.height = scaleY;
-		}*/
+		let temp = calculateAspectRatioFit(img.width, img.height, scaleX, scaleY);
+		img.width = temp.width;
+		img.height = temp.height;
+		getDimensions(img.width, img.height);
 		showImage(img.width, img.height);
-		//getDimensions(img.width, img.height, showImage);
 	}
 };
+
 
 let canvas = document.querySelector('#canvas');
 let ctx = canvas.getContext('2d');
@@ -62,7 +66,7 @@ function showImage(w, h) {
 	ctx.beginPath();
 	ctx.drawImage(img, 0, 0, w, h);
 	colors = ctx.getImageData(0, 0, w, h).data;
-	s.clear(0,0,canvas.width, canvas.height);
+	//s.clear(0,0,canvas.width, canvas.height);
 	
 	for(var y = 0; y < h; y += radii) {
 	  	for(var x = 0; x < w; x += radii) {
@@ -76,9 +80,9 @@ function showImage(w, h) {
 	    		sumX += x;
 	  			sumY += y;
 
-		    	var clr = 'rgba('+ red + ',' + green + ',' + blue + ',' + alpha +')';
+		    	/*var clr = 'rgba('+ red + ',' + green + ',' + blue + ',' + alpha +')';
 		    	store.push(new Particle(x, y, clr));
-		    	store[sumnwp].draw();
+		    	store[sumnwp].draw();*/
 		    	sumnwp++;
 	    	}
 	 	}
