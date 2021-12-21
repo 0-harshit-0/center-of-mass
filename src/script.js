@@ -24,7 +24,7 @@ reader.onload = (event) => {
 		let temp = calculateAspectRatioFit(img.width, img.height, scaleX, scaleY);
 		img.width = temp.width;
 		img.height = temp.height;
-		
+
 		getDimensions(img.width, img.height, showImage);
 	}
 };
@@ -33,8 +33,7 @@ reader.onload = (event) => {
 let canvas = document.querySelector('#canvas');
 let ctx = canvas.getContext('2d');
 let s = new Shapes(ctx);
-let timeout = false, center;
-let radii = 1, imgData, colors, store=[];
+let colors, store=[];
 
 
 function getDimensions(w, h, callback) {
@@ -46,7 +45,7 @@ function getDimensions(w, h, callback) {
 }
 
 function showImage(w, h) {
-	imgData, colors, store=[];
+	colors, store=[];
 	let sumX=0, sumY=0, sumnwp=0;
 
 	s.clear(0,0,canvas.width, canvas.height);
@@ -54,8 +53,8 @@ function showImage(w, h) {
 	ctx.drawImage(img, 0, 0, w, h);
 	colors = ctx.getImageData(0, 0, w, h).data;
 	
-	for(var y = 0; y < h; y += radii) {
-	  	for(var x = 0; x < w; x += radii) {
+	for(var y = 0; y < h; y += 1) {
+	  	for(var x = 0; x < w; x += 1) {
 
 	  		let red = colors[((w * y) + x) * 4];
 	    	let green = colors[((w * y) + x) * 4 + 1];
@@ -69,6 +68,8 @@ function showImage(w, h) {
 	    	}
 	 	}
 	}
+	
+	/*=---draw----=*/
 	s.circle(sumX/sumnwp, sumY/sumnwp, 5);
 	s.fill('red');
 	ctx.lineWidth = 5;
