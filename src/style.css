@@ -40,9 +40,9 @@ a{
 }
 .container{
   display: flex;
-  flex-direction: column;
 
 }
 #canvas{
-  outline: solid 0.5px ;
+  background: black;
+  outline: solid 0.5px;
 }

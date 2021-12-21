@@ -1,5 +1,10 @@
 /* ------------ https://github.com/0-harshit-0/Utility-HTML5Canvas ------------------- */
-
+class Vector2D {
+	constructor(x = 0, y = 0) {
+		this.x = x;
+		this.y = y;
+	}
+}
 class Shapes {
 	constructor(context) {
 		this.c = context;
@@ -30,5 +35,10 @@ class Shapes {
 		this.c.beginPath();
 		this.c.arc(x, y, r, 0, Math.PI*2, false);
 		//this.c.closePath();
-	}	
+	}
+	box(x=0, y=0, w=10, h=10) {
+		this.c.beginPath();
+		this.c.rect(x, y, w, h);
+		//this.c.closePath();
+	}
 }
