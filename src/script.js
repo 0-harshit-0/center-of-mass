@@ -77,8 +77,6 @@ function showImage(w, h) {
 	
 	s.line(sumX/sumnwp, sumY/sumnwp+2, sumX/sumnwp, sumY/sumnwp+canvas.height, 5);
 	s.stroke('red');
-	s.line(sumX/sumnwp, sumY/sumnwp+2, sumX/sumnwp, sumY/sumnwp+canvas.height, 1);
-	s.stroke('white');
 }
 
 getDimensions(parseInt(getComputedStyle(wrap).width)*scale, parseInt(getComputedStyle(wrap).height)*scale);
