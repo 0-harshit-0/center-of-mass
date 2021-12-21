@@ -1,13 +1,28 @@
 
 let imageFile = document.querySelector('#image');
-var dataUrl, reader = new FileReader(), img = new Image();
+let dataUrl, reader = new FileReader();
 
 imageFile.addEventListener('change', (e) => {
 	reader.readAsDataURL(imageFile.files[0]);
 });
+var img;
 reader.onload = (event) => {
+	img = new Image();
 	dataUrl = event.target.result;
 	img.src = dataUrl;
+
+	img.onload = () => {
+		let scaleX = innerWidth*(80/100);
+		let scaleY = innerHeight*(80/100);
+		/*if (img.width > scaleX) {
+			img.width = scaleX
+		}
+		if(img.height > scaleY) {
+			img.height = scaleY;
+		}*/
+		showImage(img.width, img.height);
+		//getDimensions(img.width, img.height, showImage);
+	}
 };
 
 let canvas = document.querySelector('#canvas');
@@ -22,7 +37,7 @@ function getDimensions(w, h, callback) {
 	if(callback) callback();
 }
 
-let radii = 1, count=0;
+let radii = 1, imgData, colors, store=[];
 class Particle{
 	constructor(x, y, color) {
 		this.pos = new Vector2D(x, y);
@@ -38,54 +53,40 @@ class Particle{
 		this.draw();
 	}
 }
-let imgData, colors, store=[];
 
-function showImage() {
+function showImage(w, h) {
 	imgData, colors, store=[];
-	prevX=0, prevY=0;
+	let sumX=0, sumY=0, sumnwp=0;
 
 	s.clear(0,0,canvas.width, canvas.height);
 	ctx.beginPath();
-	ctx.drawImage(img, center.x, center.y, img.width, img.height);
-	colors = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+	ctx.drawImage(img, 0, 0, w, h);
+	colors = ctx.getImageData(0, 0, w, h).data;
 	s.clear(0,0,canvas.width, canvas.height);
 	
-	for(var y = 0; y < img.height; y += radii) {
-  	for(var x = 0; x < img.width; x += radii) {
+	for(var y = 0; y < h; y += radii) {
+	  	for(var x = 0; x < w; x += radii) {
 
-  		let red = colors[((img.width * y) + x) * 4];
-    	let green = colors[((img.width * y) + x) * 4 + 1];
-    	let blue = colors[((img.width * y) + x) * 4 + 2];
-    	let alpha = colors[((img.width * y) + x) * 4 + 3];
+	  		let red = colors[((w * y) + x) * 4];
+	    	let green = colors[((w * y) + x) * 4 + 1];
+	    	let blue = colors[((w * y) + x) * 4 + 2];
+	    	let alpha = colors[((w * y) + x) * 4 + 3];
 
-    	if (red < 255 && green < 255 && blue < 255) {
-    		if(x > prevX) {prevX = x;}
-    		if(y > prevY) {prevY = y;}
+	    	if (red < 255 && green < 255 && blue < 255) {
+	    		sumX += x;
+	  			sumY += y;
 
-	    	var clr = 'rgba('+ red + ',' + green + ',' + blue + ',' + alpha +')';
-	    	store.push(new Particle(x, y, clr));
-    	}
+		    	var clr = 'rgba('+ red + ',' + green + ',' + blue + ',' + alpha +')';
+		    	store.push(new Particle(x, y, clr));
+		    	store[sumnwp].draw();
+		    	sumnwp++;
+	    	}
 	 	}
 	}
-	getDimensions(prevX, prevY);
-	store.forEach(z=> {
-		z.draw();
-	});
-	let tempC = new Vector2D(prevX/2, prevY/2);
-	s.circle(tempC.x, tempC.y);
+	s.circle(sumX/sumnwp, sumY/sumnwp);
 	s.fill('red');
 }
-img.onload = () => {
-	let scaleX = innerWidth*(80/100);
-	let scaleY = innerHeight*(80/100);
-	if (img.width > scaleX) {
-		img.width = scaleX
-	}
-	if(img.height > scaleY) {
-		img.height = scaleY;
-	}
-	//getDimensions(img.width, img.height, showImage);
-}
+
 
 let wrap = document.querySelector(".wrap");
 let scale = 80/100;
