@@ -10,10 +10,10 @@ function calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {
 	return { width: srcWidth*ratio, height: srcHeight*ratio };
 }
 
-console.log(1)
+
 imageFile.addEventListener('change', (e) => {
 	if(!imageFile.files.length) return;
-
+	
 	reader.readAsDataURL(imageFile.files[0]);
 });
 reader.onload = (event) => {
