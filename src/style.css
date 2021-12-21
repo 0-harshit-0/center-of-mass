@@ -3,6 +3,7 @@
   box-sizing: border-box;
 }
 body {
+  margin: 0;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
@@ -16,21 +17,25 @@ input, button, textarea, select {
 p, h1, h2, h3, h4, h5, h6 {
   overflow-wrap: break-word;
 }
-
+html,body{
+  height: 100%;
+}
 
 
 
 .wrap{
-    display: grid;
-    grid-template-columns: 14% auto;
-    align-items: start;
-    gap: 3%;
+  display: grid;
+  grid-template-rows: 10% auto;
+  justify-items: center;
+  align-items: start;
+
+  height: 95%;
 }
 .container{
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+
 }
 #canvas{
-    justify-self: center;
-    border: solid;
+  outline: solid 0.5px ;
 }

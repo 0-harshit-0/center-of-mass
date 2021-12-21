@@ -1,5 +1,4 @@
-const container = document.querySelector('#container');
-const download = document.querySelector('#download');
+
 let imageFile = document.querySelector('#image');
 var dataUrl, reader = new FileReader(), img = new Image();
 
@@ -40,7 +39,7 @@ class Particle{
 	}
 }
 let imgData, colors, store=[];
-let prevX=0, prevY=0;
+
 function showImage() {
 	imgData, colors, store=[];
 	//prevX=0, prevY=0;
@@ -48,7 +47,7 @@ function showImage() {
 
 	s.clear(0,0,canvas.width, canvas.height);
 	ctx.beginPath();
-	ctx.drawImage(img, center.x-img.width/2, center.y-img.height/2);
+	ctx.drawImage(img, center.x, center.y, img.width, img.height);
 	colors = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
 	s.clear(0,0,canvas.width, canvas.height);
 	
@@ -82,6 +81,17 @@ function showImage() {
 	s.fill('red');
 }
 img.onload = () => {
-	getDimensions(img.width, img.height, showImage);
+	let scaleX = innerWidth*(80/100);
+	let scaleY = innerHeight*(80/100);
+	if (img.width > scaleX) {
+		img.width = scaleX
+	}
+	if(img.height > scaleY) {
+		img.height = scaleY;
+	}
+	//getDimensions(img.width, img.height, showImage);
 }
 
+let wrap = document.querySelector(".wrap");
+let scale = 80/100;
+getDimensions(parseInt(getComputedStyle(wrap).width)*scale, parseInt(getComputedStyle(wrap).height)*scale);
