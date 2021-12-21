@@ -39,7 +39,6 @@ let colors, store=[];
 function getDimensions(w, h, callback) {
 	canvas.width = w;
 	canvas.height = h;
-	center = new Vector2D(canvas.width/2, canvas.height/2);
 
 	if(callback) callback(w, h);
 }
@@ -70,11 +69,16 @@ function showImage(w, h) {
 	}
 	
 	/*=---draw----=*/
-	s.circle(sumX/sumnwp, sumY/sumnwp, 5);
+	s.circle(sumX/sumnwp, sumY/sumnwp, 7);
 	s.fill('red');
-	ctx.lineWidth = 5;
-	s.line(sumX/sumnwp, sumY/sumnwp, sumX/sumnwp, sumY/sumnwp+canvas.height);
+	s.circle(sumX/sumnwp, sumY/sumnwp, 2);
+	s.fill('white');
+
+	
+	s.line(sumX/sumnwp, sumY/sumnwp+2, sumX/sumnwp, sumY/sumnwp+canvas.height, 5);
 	s.stroke('red');
+	s.line(sumX/sumnwp, sumY/sumnwp+2, sumX/sumnwp, sumY/sumnwp+canvas.height, 1);
+	s.stroke('white');
 }
 
 getDimensions(parseInt(getComputedStyle(wrap).width)*scale, parseInt(getComputedStyle(wrap).height)*scale);
