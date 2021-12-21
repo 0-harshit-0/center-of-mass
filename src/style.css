@@ -1,9 +1,17 @@
-
+::selection {
+  color: white;
+  background: grey;
+}
 *, *::before, *::after {
   box-sizing: border-box;
 }
-body {
+* {
   margin: 0;
+}
+html, body {
+  height: 100%;
+}
+body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
@@ -17,12 +25,11 @@ input, button, textarea, select {
 p, h1, h2, h3, h4, h5, h6 {
   overflow-wrap: break-word;
 }
-html,body{
-  height: 100%;
+
+
+a{
+  margin: 1%;
 }
-
-
-
 .wrap{
   display: grid;
   grid-template-rows: 10% auto;

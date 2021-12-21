@@ -71,11 +71,11 @@ function showImage(w, h) {
 	/*=---draw----=*/
 	s.circle(sumX/sumnwp, sumY/sumnwp, 7);
 	s.fill('red');
-	s.circle(sumX/sumnwp, sumY/sumnwp, 2);
+	s.circle(sumX/sumnwp, sumY/sumnwp, 3);
 	s.fill('white');
 
 	
-	s.line(sumX/sumnwp, sumY/sumnwp+2, sumX/sumnwp, sumY/sumnwp+canvas.height, 5);
+	s.line(sumX/sumnwp, sumY/sumnwp+3, sumX/sumnwp, sumY/sumnwp+canvas.height, 5);
 	s.stroke('red');
 }
 
