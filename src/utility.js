@@ -1,3 +1,5 @@
+/* ------------ https://github.com/0-harshit-0/Utility-HTML5Canvas ------------------- */
+
 class Shapes {
 	constructor(context) {
 		this.c = context;
