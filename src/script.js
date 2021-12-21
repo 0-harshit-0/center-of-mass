@@ -5,15 +5,10 @@ let dataUrl, reader = new FileReader(), img;
 let wrap = document.querySelector(".wrap");
 let scale = 80/100;
 
-function calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {
-	var ratio = Math.min(maxWidth / srcWidth, maxHeight / srcHeight);
-	return { width: srcWidth*ratio, height: srcHeight*ratio };
-}
-
 
 imageFile.addEventListener('change', (e) => {
 	if(!imageFile.files.length) return;
-	
+
 	reader.readAsDataURL(imageFile.files[0]);
 });
 reader.onload = (event) => {
@@ -36,9 +31,6 @@ let ctx = canvas.getContext('2d');
 let s = new Shapes(ctx), timeout = false;
 let colors, store=[];
 
-bgColr.onchange = () => {
-	canvas.style.background = bgColr.value;
-}
 function getDimensions(w, h, callback) {
 	canvas.width = w;
 	canvas.height = h;
@@ -88,6 +80,8 @@ function showImage(w, h) {
 	ctx.drawImage(img, 0, 0, w, h);
 	colors = ctx.getImageData(0, 0, w, h).data;
 	s.clear(0,0,w,h);
+
+	let tempClr = hexToRgb(bgColr.value);
 	
 	for(var y = 0; y < h; y += 1) {
 	  	for(var x = 0; x < w; x += 1) {
@@ -97,8 +91,7 @@ function showImage(w, h) {
 	    	let blue = colors[((w * y) + x) * 4 + 2];
 	    	let alpha = colors[((w * y) + x) * 4 + 3];
 
-	    	if (red < 250 && green < 250 && blue < 250) {
-	    		if(y > prevY) {prevY = y;}
+	    	if (red != tempClr.r && green != tempClr.g && blue != tempClr.b) {
 	    		sumX += x;
 	  			sumY += y;
 		    	sumnwp++;
@@ -106,6 +99,9 @@ function showImage(w, h) {
 		    	var clr = 'rgba('+ red + ',' + green + ',' + blue + ',' + alpha +')';
 		    	store.push(new Particle(x, y, clr));
 		    	store[sumnwp-1].draw();
+	    	}
+	    	if (red < 250 && green < 250 && blue < 250) {
+	    		if(y > prevY) {prevY = y;}
 	    	}
 	 	}
 	}
@@ -117,8 +113,12 @@ function showImage(w, h) {
 	s.fill('white');
 
 	
-	s.line(sumX/sumnwp, sumY/sumnwp+3, sumX/sumnwp, sumY/sumnwp+(prevY/2), 5);
+	s.line(sumX/sumnwp, sumY/sumnwp+3, sumX/sumnwp, prevY, 5);
 	s.stroke('red');
 }
 
 getDimensions(parseInt(getComputedStyle(wrap).width)*scale, parseInt(getComputedStyle(wrap).height)*scale);
+
+bgColr.onchange = () => {
+	showImage(img.width, img.height);
+}
