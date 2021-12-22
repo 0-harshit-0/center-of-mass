@@ -131,6 +131,5 @@ bgColr.onchange = () => {
 light.onchange = () => {
 	if(!img) return;
 	
-	console.log(1)
 	showImage(img.width, img.height);
 }
