@@ -33,18 +33,21 @@ a{
 .wrap{
   display: grid;
   grid-template-rows: 10% auto;
-  justify-content: center;
+  justify-items: center;
   align-items: start;
 
   height: 95%;
+
 }
 .container{
   display: flex;
   justify-content: space-evenly;
   align-items: baseline;
 
+  width: 900px;
 }
 .container > label{
+
   display: flex;
   align-items: center;
 }
