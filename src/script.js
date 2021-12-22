@@ -1,4 +1,5 @@
 
+let light = document.querySelector('#lighting');
 let bgColr = document.querySelector('#bgClr');
 let imageFile = document.querySelector('#image');
 let dataUrl, reader = new FileReader(), img;
@@ -91,7 +92,10 @@ function showImage(w, h) {
 	    	let blue = colors[((w * y) + x) * 4 + 2];
 	    	let alpha = colors[((w * y) + x) * 4 + 3];
 
-	    	if (red != tempClr.r && green != tempClr.g && blue != tempClr.b) {
+	    	if ((red < tempClr.r-light.value || red > tempClr.r+light.value) &&
+	    		(green < tempClr.g-light.value || green > tempClr.g+light.value) &&
+	    		(blue < tempClr.b-light.value || blue > tempClr.b+light.value)) {
+	    		
 	    		sumX += x;
 	  			sumY += y;
 		    	sumnwp++;
@@ -122,5 +126,11 @@ getDimensions(parseInt(getComputedStyle(wrap).width)*scale, parseInt(getComputed
 bgColr.onchange = () => {
 	if(!img) return;
 	
+	showImage(img.width, img.height);
+}
+light.onchange = () => {
+	if(!img) return;
+	
+	console.log(1)
 	showImage(img.width, img.height);
 }
