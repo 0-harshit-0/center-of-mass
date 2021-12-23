@@ -83,7 +83,7 @@ function showImage(w, h) {
 	s.clear(0,0,w,h);
 
 	let tempClr = hexToRgb(bgColr.value);
-	
+	console.log(tempClr)
 	for(var y = 0; y < h; y += 1) {
 	  	for(var x = 0; x < w; x += 1) {
 
@@ -92,9 +92,22 @@ function showImage(w, h) {
 	    	let blue = colors[((w * y) + x) * 4 + 2];
 	    	let alpha = colors[((w * y) + x) * 4 + 3];
 
-	    	if ((red < tempClr.r-light.value || red > tempClr.r+light.value) &&
-	    		(green < tempClr.g-light.value || green > tempClr.g+light.value) &&
-	    		(blue < tempClr.b-light.value || blue > tempClr.b+light.value)) {
+	    	if ((red < tempClr.r-light.value) &&
+	    		(green < tempClr.r-light.value) &&
+	    		(blue < tempClr.r-light.value)
+	    	) {
+	    		sumX += x;
+	  			sumY += y;
+		    	sumnwp++;
+
+		    	var clr = 'rgba('+ red + ',' + green + ',' + blue + ',' + alpha +')';
+		    	store.push(new Particle(x, y, clr));
+		    	store[sumnwp-1].draw();
+	    	}
+	    	if ((red > tempClr.r+light.value) &&
+	    		(green > tempClr.r+light.value) &&
+	    		(blue > tempClr.r+light.value)
+	    	) {
 	    		
 	    		sumX += x;
 	  			sumY += y;
